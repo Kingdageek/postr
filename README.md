@@ -1,0 +1,1 @@
+Postr is a simple social network built atop the rivrbankMVC framework

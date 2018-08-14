@@ -19,7 +19,7 @@
 
     public function __construct() {
       // set DSN
-      $dsn = "mysql:host=$this->host;dbname=$this->dbname";
+      $dsn = "mysql:host=$this->host;dbname=$this->dbname;charset=utf8";
       // Some DB PDO connection options
       $options = array(
         PDO::ATTR_PERSISTENT => true,

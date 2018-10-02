@@ -5,22 +5,21 @@
 		<div class="col-md-6">
 			<h1><?php echo ($data["user"]->id == $_SESSION["user_id"]) ? "Your" : $data["user"]->name . "'s";?> Posts</h1>
 		</div>
-		<!-- <div class="col-md-6">
-			<a href="<?php echo URLROOT; ?>/posts/add" class="btn btn-primary pull-right">
-				<i class="fa fa-pencil"></i> Add Post
-			</a>
-		</div> -->
+		
 	</div>
+	<?php $i = 0;?>
 	<?php foreach($data["posts"] as $posts): ?>
 		<div class="card-body mb-3 p-2">
 			<h4 class="card-title"><?php echo $posts->title?></h4>
 			<div class="bg-light mb-3">Written By 
 				<?php echo $data["user"]->name; ?> On <?php echo $posts->created_at; ?></div>
 			<p class="card-text"><?php echo $posts->body; ?></p>
-			<a class="btn btn-primary pull-right" href="<?php echo URLROOT;?>/posts/like/<?php echo $posts->id;?>">
-  				Likes <span class="badge badge-light">4</span>
-			</a>
+			<input type="hidden" id="pid<?=$i;?>" value="<?= $posts->id;?>">
+			<button id="like--btn<?=$i;?>" class="btn btn-primary pull-right">
+  				Like <span class="badge badge-light">4</span>
+			</button>
 			<a href="<?php echo URLROOT;?>/posts/show/<?php echo $posts->id;?>" class="btn btn-dark">More</a>
 		</div>
+	<?php $i++; ?>
 	<?php endforeach; ?>
 <?php require_once APPROOT. "/views/inc/footer.php";?>

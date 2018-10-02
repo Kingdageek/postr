@@ -14,7 +14,7 @@
 	<div class = "card bg-light mb-3">
 		<div class="card-body mb-3 p-2">
 			<h4 class="card-title"><?php echo $posts->title?></h4>
-			<div class="bg-light mb-3">Written By <a href="<?php echo URLROOT;?>/posts/user/<?php echo $posts->name."/".$posts->userId;?>">
+			<div class="bg-light mb-3">Written By <a href="<?php echo URLROOT;?>/posts/user/<?php echo $posts->namelink."/".$posts->userId;?>">
 				<?php echo $posts->name; ?></a> On <?php echo $posts->postCreated; ?></div>
 			<p class="card-text"><?php echo $posts->body; ?></p>
 			<a href="<?php echo URLROOT;?>/posts/show/<?php echo $posts->postId;?>" class="btn btn-dark btn-block">More</a>

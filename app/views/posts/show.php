@@ -2,7 +2,7 @@
     <a href="<?php echo URLROOT;?>/posts" class="btn btn-light"><i class= "fa fa-backward"></i> Back To All Posts</a>
 	<h1><?php echo $data["post"]->title ?></h1>
 	<div class="bg-secondary text-white p-2 mb-3">
-		Written By <?php echo $data["user"]->name; ?> on <?php echo $data["user"]->created_at; ?>
+		Written By <?php echo $data["user"]->name; ?> on <?php echo $data["post"]->created_at; ?>
 			
 	</div>
 	<p><?php echo $data["post"]->body; ?></p>

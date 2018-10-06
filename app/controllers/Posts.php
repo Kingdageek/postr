@@ -154,52 +154,6 @@
 			}
 		}
 
-		// public function hasLiked($user_id, $post_id) {
-		// 	$posts = $this->postModel->getUsersWhoLike($post_id);
-		// 	$user_ids_who_like = $posts->users_who_like; // return long string
-		// 	$user_ids_who_like = explode(" ", $user_ids_who_like);
-
-		// 	if (!empty($user_ids_who_like)) {
-		// 		foreach ($id as $user_ids_who_like) {
-		// 			$id = intval($id);
-		// 		}
-
-		// 		if (in_array($_SESSION["user_id"], $user_ids_who_like)){
-		// 			return $user_ids_who_like;
-		// 		} 
-		// 		else{
-		// 			return false;
-		// 		} 
-		// 	} else {
-		// 		return false;
-		// 	}	
-
-		// }
-
-		// public function like($id) {
-		// 	// We have to make sure logged in user cannot like more than once
-		// 	$user_id = $_SESSION["user_id"];
-		// 	$user_ids_wl = $this->hasLiked($user_id, $id);
-		// 	if ($user_ids_wl) {
-		// 		//$this->unlike($id);
-				
-		// 	} else {
-		// 		$user_ids_wl = array_push($user_ids_wl, $user_id);
-		// 		$user_ids_wl = implode(" ", $user_ids_wl);
-
-		// 		$data = [
-		// 		$post_id => $id,
-		// 		$user_ids_wl => $user_ids_wl
-		// 		];
-
-		// 		if ($this->postModel->likePost($data)) {
-		// 			redirect("posts");
-		// 		} else {
-		// 			die("Something went horribly wrong. We've notified our engineers.");
-		// 		}
-		// 	}
-		// }
-
 		public function show($id) {
 			$post = $this->postModel->getPostById($id);
 			$user = $this->userModel->getUserById($post->user_id);
@@ -211,5 +165,38 @@
 
 			$this->load_view("posts/show", $data);
 		}
+
+		public function add_like($id) 
+		{
+			$id = (int) $id;
+			if ($this->postModel->postExists($id)) {
+				if ($this->postModel->postPreviouslyLiked($id)) {
+					echo ($this->postModel->removePostLike($id) ? "removed" : "");
+				} else {
+					echo ($this->postModel->addPostLike($id) ? "success" : "");
+				}
+			} else {
+				echo "Post does not exist";
+			}
+		}
+
+		public function get_likes($id) 
+		{
+			$id = (int) $id;
+			if ($this->postModel->postExists($id)) {
+				// Returns an object with the `likes` attribute
+				echo $this->postModel->getPostLikes($id);
+			}
+		}
+
+		public function show_likes($id) 
+		{
+			$id = (int) $id;
+			if ($this->postModel->postExists($id)) {
+				$data = [
+					'likes' => $this->postModel->getPostUserLikes($id)
+				];
+				$this->load_view('posts/likes', $data);
+			}
+		}
 	}
- ?>

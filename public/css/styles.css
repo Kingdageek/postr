@@ -1,3 +1,7 @@
 span.invalid-feedback {
 	display: inline-block !important;
 }
+
+#likesModal .modal-body {
+	padding: 0;
+}

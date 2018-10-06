@@ -1,19 +1,26 @@
 <?php require_once APPROOT. "/views/inc/header.php";?>
-	<!-- <?php flash("post_message"); ?> -->
     <a href="<?php echo URLROOT;?>/posts" class="btn btn-light"><i class= "fa fa-backward"></i> Back To All Posts</a>
 	<div class="row mb-3">
 		<div class="col-md-6">
 			<h1><?php echo ($data["user"]->id == $_SESSION["user_id"]) ? "Your" : $data["user"]->name . "'s";?> Posts</h1>
 		</div>
+<<<<<<< HEAD
 		
 	</div>
 	<?php $i = 0;?>
 	<?php foreach($data["posts"] as $posts): ?>
 		<div class="card-body mb-3 p-2">
+=======
+	</div>
+	<?php foreach($data["posts"] as $posts): $ppl = $this->postModel->postPreviouslyLiked($posts->postId);?>
+	<div class = "card bg-light mb-3">
+		<div class="card-body mb-3 pl-5 pr-5 p-2">
+>>>>>>> likes
 			<h4 class="card-title"><?php echo $posts->title?></h4>
-			<div class="bg-light mb-3">Written By 
-				<?php echo $data["user"]->name; ?> On <?php echo $posts->created_at; ?></div>
+			<div class="bg-light mb-3">Written By <a href="<?php echo URLROOT;?>/posts/user/<?php echo $data["user"]->name."/".$posts->userId;?>">
+				<?php echo $data["user"]->name; ?></a> On <?php echo $posts->postCreated; ?></div>
 			<p class="card-text"><?php echo $posts->body; ?></p>
+<<<<<<< HEAD
 			<input type="hidden" id="pid<?=$i;?>" value="<?= $posts->id;?>">
 			<button id="like--btn<?=$i;?>" class="btn btn-primary pull-right">
   				Like <span class="badge badge-light">4</span>
@@ -23,3 +30,49 @@
 	<?php $i++; ?>
 	<?php endforeach; ?>
 <?php require_once APPROOT. "/views/inc/footer.php";?>
+=======
+			
+			<div>
+				<a href="<?php echo URLROOT;?>/posts/show/<?php echo $posts->postId;?>" class="btn btn-dark pull-right ml-2">More</a>
+				<a class="btn btn-primary pull-right ml-2" href="#!" id= "likebtn<?=$posts->postId;?>" onclick="add_like(<?=$posts->postId;?>)">
+					<?= ($ppl ? "Liked" : "Like");?>
+				</a>
+				<a href="#!" data-toggle="modal" data-target="#likesModal" class="pull-right" onclick="show_likes(<?=$posts->postId;?>)">
+					<small <?=($posts->likes > 0) ? 'data-toggle="tooltip" title="View likes" data-placement="top"' : '';?> >
+						<span id="post_<?=$posts->postId;?>_likes">
+							<?php if ($ppl && $posts->likes == 1):?>
+								You
+							<?php elseif ($ppl && $posts->likes == 2):?>
+								You and 1 other 
+							<?php elseif ($ppl && $posts->likes > 2):?>
+								You and <?= $posts->likes - 1;?> others 
+							<?php else: echo $posts->likes;?>
+							<?php endif;?>
+						</span> like this
+					</small>
+				</a>
+			</div>
+		</div>
+	</div>
+	<?php endforeach; ?>
+
+	<!-- Like Modal -->
+	<div class="modal fade" id="likesModal" tabindex="-1" role="dialog" aria-labelledby="likesModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="likesModalLabel">People who like this</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					
+				</div>
+				<div class="modal-footer">
+				</div>
+			</div>
+		</div>
+	</div>
+<?php require_once APPROOT. "/views/inc/footer.php";?>
+>>>>>>> likes

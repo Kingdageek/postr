@@ -169,5 +169,38 @@
 
 			$this->load_view("posts/show", $data);
 		}
+
+		public function add_like($id) 
+		{
+			$id = (int) $id;
+			if ($this->postModel->postExists($id)) {
+				if ($this->postModel->postPreviouslyLiked($id)) {
+					echo ($this->postModel->removePostLike($id) ? "removed" : "");
+				} else {
+					echo ($this->postModel->addPostLike($id) ? "success" : "");
+				}
+			} else {
+				echo "Post does not exist";
+			}
+		}
+
+		public function get_likes($id) 
+		{
+			$id = (int) $id;
+			if ($this->postModel->postExists($id)) {
+				// Returns an object with the `likes` attribute
+				echo $this->postModel->getPostLikes($id);
+			}
+		}
+
+		public function show_likes($id) 
+		{
+			$id = (int) $id;
+			if ($this->postModel->postExists($id)) {
+				$data = [
+					'likes' => $this->postModel->getPostUserLikes($id)
+				];
+				$this->load_view('posts/likes', $data);
+			}
+		}
 	}
- ?>

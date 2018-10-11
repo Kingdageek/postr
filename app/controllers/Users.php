@@ -21,10 +21,12 @@
         // Init data 
         $data = [
           "name" => trim($_POST["name"]),
+          "username" => trim($_POST['username']),
           "email" => trim($_POST["email"]) ,
           "password" => trim($_POST["password"]),
           "confirm_password" => trim($_POST["confirm_password"]),
           "name_err" => "",
+          "username_err" => "",
           "email_err" => "",
           "password_err" => "",
           "confirm_password_err" => ""
@@ -35,12 +37,22 @@
           $data["name_err"] = "Please Enter Your Name";
         }
 
+        // Validate Username
+
+        if (empty($data["username"])) {
+          $data["username_err"] = "Please choose a unique username";
+        } elseif ($this->userModel->findUserByUsername($data["username"])) {
+          $data['username_err'] = "Username already taken";
+        }
+
         // Validate Email
         if (empty($data["email"])) {
           $data["email_err"] = "Please Enter Your Email";
         } else {
           // some more validation like if the email has been used and maybe regex
-          if ($this->userModel->findUserByEmail($data["email"])) {
+          if (filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
+            $data['email_err'] = "Please enter a valid email";
+          } elseif ($this->userModel->findUserByEmail($data["email"])) {
             $data["email_err"] = "Email Already Taken";
           }
         }
@@ -65,7 +77,7 @@
         // Registration Was Successful, Display Success page
         // Else load register view again with the error messages
         // in $data array filled and displayed appropriately
-        if (empty($data["name_err"]) && empty($data["email_err"]) && empty($data["password_err"]) && empty($data["confirm_password_err"])) {
+        if (empty($data["name_err"]) && empty($data["email_err"]) && empty($data["password_err"]) && empty($data["confirm_password_err"]) && empty($data["username_err"])) {
           // Hash The Password
           $data["password"] = password_hash($data["password"], PASSWORD_DEFAULT);
 

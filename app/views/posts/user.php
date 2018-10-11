@@ -9,7 +9,7 @@
 	<div class = "card bg-light mb-3">
 		<div class="card-body mb-3 pl-5 pr-5 p-2">
 			<h4 class="card-title"><?php echo $posts->title?></h4>
-			<div class="bg-light mb-3">Written By <a href="<?php echo URLROOT;?>/posts/user/<?php echo $data["user"]->name."/".$posts->userId;?>">
+			<div class="bg-light mb-3">Written By <a href="<?php echo URLROOT;?>/posts/user/<?php echo $data["user"]->name."/".$data['user']->id;?>">
 				<?php echo $data["user"]->name; ?></a> On <?php echo $posts->postCreated; ?></div>
 			<p class="card-text"><?php echo $posts->body; ?></p>
 			

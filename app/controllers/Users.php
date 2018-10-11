@@ -41,7 +41,7 @@
 
         if (empty($data["username"])) {
           $data["username_err"] = "Please choose a unique username";
-        } elseif ($this->userModel->findUserByUsername($data["username"])) {
+        } elseif ($this->userModel->getUserByUsername($data["username"])) {
           $data['username_err'] = "Username already taken";
         }
 

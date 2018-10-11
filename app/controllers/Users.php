@@ -100,10 +100,12 @@
         // user input error, the already entered data remains
         $data = [
           "name" => "",
+          "username" => "",
           "email" => "",
           "password" => "",
           "confirm_password" => "",
           "name_err" => "",
+          "username_err" => "",
           "email_err" => "",
           "password_err" => "",
           "confirm_password_err" => ""

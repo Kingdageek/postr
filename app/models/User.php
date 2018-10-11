@@ -48,10 +48,10 @@
 			return $concl;
 		}
 
-		public function findUserByEmail($email) {
+		public function getUserByEmail($email) {
 			// Access Database class and its methods 
 			// to prepare the sql statement
-			$this->db->query("SELECT email FROM users WHERE email = :email");
+			$this->db->query("SELECT * FROM users WHERE email = :email");
 
 			// Bind the values 
 			$this->db->bind(":email", $email);
@@ -59,8 +59,19 @@
 			// Execute and returned result
 			$result = $this->db->single();
 
-			$concl = ($this->db->rowCount() > 0) ? true : false;
-			return $concl;
+			return (empty($result) ? false : $result);
+		}
+
+		public function getUserByUsername(String $username)
+		{
+			$this->db->query("SELECT * FROM `users` WHERE `username` = :username");
+
+			// Bind the values 
+			$this->db->bind(":username", $username);
+
+			// Execute and returned result
+			$result = $this->db->single();
+			return (empty($result) ? false : $result);
 		}
 
 		public function getUserById($id) {

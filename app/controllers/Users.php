@@ -50,7 +50,7 @@
           $data["email_err"] = "Please Enter Your Email";
         } else {
           // some more validation like if the email has been used and maybe regex
-          if (filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
+          if (!filter_var($data["email"], FILTER_VALIDATE_EMAIL)) {
             $data['email_err'] = "Please enter a valid email";
           } elseif ($this->userModel->getUserByEmail($data["email"])) {
             $data["email_err"] = "Email Already Taken";
@@ -135,7 +135,7 @@
           $data["email_err"] = "Please Enter Your Email";
         } else {
           // some more validation like if the email has been used and maybe regex
-          if (!$this->userModel->findUserByEmail($data["email"])) {
+          if (!$this->userModel->getUserByEmail($data["email"])) {
             // User Email not Found in database
             $data["email_err"] = "Email not registered";
           }

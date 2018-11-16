@@ -49,11 +49,12 @@
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				// process form
 				// Sanitize Inputs
+				$body = stripslashes(trim($_POST['body']));
 				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
 				$data = [
 					"title" => trim($_POST["title"]),
-					"body" => nl2br(trim($_POST["body"])),
+					"body" => $body,
 					"title_err" => "",
 					"body_err" => "",
 					"user_id" => $_SESSION["user_id"]
@@ -97,12 +98,13 @@
 		public function edit($id) {
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				// process form
+				$body = stripslashes(trim($_POST['body']));
 				$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
 				$data = [
 					"id" => $id,
 					"title" => trim($_POST["title"]),
-					"body" => nl2br(trim($_POST["body"])),
+					"body" => $body,
 					"title_err" => "",
 					"body_err" => ""
 				];

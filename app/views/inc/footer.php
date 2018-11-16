@@ -13,7 +13,10 @@
         // for ajax calls
         let urlroot = '<?=URLROOT;?>';
     </script>
-    <script type="text/javascript" src="<?php echo URLROOT; ?>/js/main.js">
+    <script type="text/javascript" src="<?php echo URLROOT; ?>/js/main.js"></script>
+    <script src="<?= URLROOT;?>/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('body');
     </script>
   </body>
 </html>
